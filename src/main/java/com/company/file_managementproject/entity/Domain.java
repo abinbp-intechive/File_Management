@@ -1,6 +1,7 @@
 package com.company.file_managementproject.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 
@@ -18,6 +19,10 @@ public class Domain {
     @Id
     private UUID id;
 
+    @OneToMany(mappedBy = "domain")
+    private List<User> members;
+
+    @InstanceName
     @Column(name = "DOMAIN_NAME")
     private String domain_name;
 
@@ -27,6 +32,14 @@ public class Domain {
     @JoinColumn(name = "TEAM_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
+
+    public List<User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(List<User> members) {
+        this.members = members;
+    }
 
     public List<FileEntity> getFile() {
         return file;

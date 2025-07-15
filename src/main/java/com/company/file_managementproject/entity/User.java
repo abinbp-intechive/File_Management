@@ -1,8 +1,10 @@
 package com.company.file_managementproject.entity;
 
+import io.jmix.core.DeletePolicy;
 import io.jmix.core.HasTimeZone;
 import io.jmix.core.annotation.Secret;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.entity.annotation.OnDeleteInverse;
 import io.jmix.core.entity.annotation.SystemLevel;
 import io.jmix.core.metamodel.annotation.DependsOnProperties;
 import io.jmix.core.metamodel.annotation.InstanceName;
@@ -20,7 +22,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "USER_", indexes = {
         @Index(name = "IDX_USER__ON_USERNAME", columnList = "USERNAME", unique = true),
-        @Index(name = "IDX_USER__TEAM", columnList = "TEAM_ID")
+        @Index(name = "IDX_USER__TEAM", columnList = "TEAM_ID"),
+        @Index(name = "IDX_USER__DOMAIN", columnList = "DOMAIN_ID")
 })
 public class User implements JmixUserDetails, HasTimeZone {
 
@@ -61,8 +64,21 @@ public class User implements JmixUserDetails, HasTimeZone {
     @ManyToOne(fetch = FetchType.LAZY)
     private Team team;
 
+    @OnDeleteInverse(DeletePolicy.UNLINK)
+    @JoinColumn(name = "DOMAIN_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Domain domain;
+
     @Transient
     private Collection<? extends GrantedAuthority> authorities;
+
+    public Domain getDomain() {
+        return domain;
+    }
+
+    public void setDomain(Domain domain) {
+        this.domain = domain;
+    }
 
     public Team getTeam() {
         return team;

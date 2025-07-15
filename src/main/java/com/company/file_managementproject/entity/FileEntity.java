@@ -1,9 +1,9 @@
 package com.company.file_managementproject.entity;
 
 import io.jmix.core.DeletePolicy;
-import io.jmix.core.FileRef;
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
 import io.jmix.core.entity.annotation.OnDeleteInverse;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 
@@ -22,12 +22,12 @@ public class FileEntity {
     @Id
     private UUID id;
 
+    @InstanceName
     @Column(name = "FILE_NAME")
     private String file_name;
 
     @Column(name = "FILE_DATA")
-    @Lob
-    private FileRef file_data;
+    private byte[] file_data;
 
     @OnDeleteInverse(DeletePolicy.UNLINK)
     @JoinColumn(name = "UPLOADED_BY_ID")
@@ -43,6 +43,14 @@ public class FileEntity {
     @JoinColumn(name = "DOMAIN_ID")
     @ManyToOne(fetch = FetchType.LAZY)
     private Domain domain;
+
+    public void setFile_data(byte[] file_data) {
+        this.file_data = file_data;
+    }
+
+    public byte[] getFile_data() {
+        return file_data;
+    }
 
     public User getUploaded_by() {
         return uploaded_by;
@@ -66,14 +74,6 @@ public class FileEntity {
 
     public void setTeam(Team team) {
         this.team = team;
-    }
-
-    public FileRef getFile_data() {
-        return file_data;
-    }
-
-    public void setFile_data(FileRef file_data) {
-        this.file_data = file_data;
     }
 
     public String getFile_name() {

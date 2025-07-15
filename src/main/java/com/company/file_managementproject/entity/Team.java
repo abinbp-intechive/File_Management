@@ -1,6 +1,7 @@
 package com.company.file_managementproject.entity;
 
 import io.jmix.core.entity.annotation.JmixGeneratedValue;
+import io.jmix.core.metamodel.annotation.InstanceName;
 import io.jmix.core.metamodel.annotation.JmixEntity;
 import jakarta.persistence.*;
 
@@ -16,6 +17,7 @@ public class Team {
     @Id
     private UUID id;
 
+    @InstanceName
     @Column(name = "TEAM_NAME")
     private String team_name;
 

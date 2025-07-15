@@ -7,6 +7,8 @@
         <item view="FileEntity.list"
               title="msg://com.company.file_managementproject.view.fileentity/fileEntityListView.title"/>
         <item view="Team.list" title="msg://com.company.file_managementproject.view.team/teamListView.title"/>
+        <item view="AssignUser.list"
+              title="msg://com.company.file_managementproject.view.user/assignUserListView.title"/>
     </menu>
 
 </menu-config>

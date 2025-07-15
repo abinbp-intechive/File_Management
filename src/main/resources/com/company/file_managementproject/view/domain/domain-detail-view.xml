@@ -5,9 +5,10 @@
     <data>
         <instance id="domainDc"
                   class="com.company.file_managementproject.entity.Domain">
-            <fetchPlan extends="_base">
+            <fetchPlan extends="_instance_name">
                 <property name="file" fetchPlan="_base"/>
                 <property name="team" fetchPlan="_base"/>
+                <property name="id"/>
             </fetchPlan>
             <loader id="domainDl"/>
         </instance>
@@ -32,6 +33,7 @@
                     <action id="entityClearAction" type="entity_clear"/>
                 </actions>
             </entityPicker>
+            <textField id="idField" property="id"/>
         </formLayout>
         <hbox id="detailActions">
             <button id="saveAndCloseButton" action="saveAction"/>

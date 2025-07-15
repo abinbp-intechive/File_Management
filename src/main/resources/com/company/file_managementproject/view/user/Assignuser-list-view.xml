@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <view xmlns="http://jmix.io/schema/flowui/view"
       xmlns:c="http://jmix.io/schema/flowui/jpql-condition"
-      title="msg://fileEntityListView.title"
-      focusComponent="fileEntitiesDataGrid">
+      title="msg://assignUserListView.title"
+      focusComponent="usersDataGrid">
     <data>
-        <collection id="fileEntitiesDc"
-                    class="com.company.file_managementproject.entity.FileEntity">
+        <collection id="usersDc"
+                    class="com.company.file_managementproject.entity.User">
             <fetchPlan extends="_instance_name">
-                <property name="uploaded_by" fetchPlan="_base"/>
+                <property name="email"/>
                 <property name="team" fetchPlan="_base"/>
                 <property name="domain" fetchPlan="_base"/>
-                <property name="file_data"/>
             </fetchPlan>
-            <loader id="fileEntitiesDl" readOnly="true">
+            <loader id="usersDl" readOnly="true">
                 <query>
-                    <![CDATA[select e from FileEntity e]]>
+                    <![CDATA[select e from User e]]>
                 </query>
             </loader>
         </collection>
@@ -32,30 +31,30 @@
     </actions>
     <layout>
         <genericFilter id="genericFilter"
-                       dataLoader="fileEntitiesDl">
+                       dataLoader="usersDl">
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <fileUploadField id="fileUploadField" dataContainer="fileEntitiesDc"
-                             fileName="msg://fileUploadField.fileName" property="file_data" clearButtonVisible="true"
-                             uploadIcon="vaadin:upload"/>
-            <button id="editButton" action="fileEntitiesDataGrid.editAction"/>
-            <button id="removeButton" action="fileEntitiesDataGrid.removeAction"/>
-            <simplePagination id="pagination" dataLoader="fileEntitiesDl"/>
+            <button id="addTeam" action="selectAction"/>
+            <button id="editButton" action="usersDataGrid.editAction"/>
+            <button id="removeButton" action="usersDataGrid.removeAction"/>
+            <simplePagination id="pagination" dataLoader="usersDl"/>
         </hbox>
-        <dataGrid id="fileEntitiesDataGrid"
+        <dataGrid id="usersDataGrid"
                   width="100%"
                   minHeight="20em"
-                  dataContainer="fileEntitiesDc"
+                  dataContainer="usersDc"
                   columnReorderingAllowed="true">
             <actions>
+                <action id="addAction" type="list_add"/>
                 <action id="editAction" type="list_edit"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
             <columns resizable="true">
-                <column property="file_name"/>
-                <column property="file_data"/>
-                <column property="uploaded_by"/>
+                <column property="username"/>
+                <column property="firstName"/>
+                <column property="lastName"/>
+                <column property="email"/>
                 <column property="team"/>
                 <column property="domain"/>
             </columns>

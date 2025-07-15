@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="File_Management-project">
+        <dropColumn columnName="FILE_DATA" tableName="FILE_ENTITY"/>
+    </changeSet>
+    <changeSet id="2" author="File_Management-project">
+        <addColumn tableName="FILE_ENTITY">
+            <column name="FILE_DATA" type="${byte[].type}"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

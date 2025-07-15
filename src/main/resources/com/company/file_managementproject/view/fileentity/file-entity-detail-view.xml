@@ -5,10 +5,11 @@
     <data>
         <instance id="fileEntityDc"
                   class="com.company.file_managementproject.entity.FileEntity">
-            <fetchPlan extends="_base">
+            <fetchPlan extends="_instance_name">
                 <property name="uploaded_by" fetchPlan="_base"/>
                 <property name="team" fetchPlan="_base"/>
                 <property name="domain" fetchPlan="_base"/>
+                <property name="file_data"/>
             </fetchPlan>
             <loader id="fileEntityDl"/>
         </instance>
