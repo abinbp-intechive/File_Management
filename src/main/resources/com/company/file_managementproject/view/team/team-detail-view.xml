@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://teamDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="teamDc"
+                  class="com.company.file_managementproject.entity.Team">
+            <fetchPlan extends="_base">
+                <property name="domain" fetchPlan="_base"/>
+                <property name="members" fetchPlan="_base"/>
+                <property name="file" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="teamDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="teamDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="team_nameField" property="team_name"/>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>

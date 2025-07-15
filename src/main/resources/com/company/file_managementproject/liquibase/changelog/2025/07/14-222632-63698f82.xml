@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1" author="File_Management-project">
+        <createTable tableName="DOMAIN_">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_DOMAIN_"/>
+            </column>
+            <column name="DOMAIN_NAME" type="VARCHAR(255)"/>
+            <column name="TEAM_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="File_Management-project">
+        <createTable tableName="FILE_ENTITY">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_FILE_ENTITY"/>
+            </column>
+            <column name="FILE_NAME" type="VARCHAR(255)"/>
+            <column name="FILE_DATA" type="CLOB"/>
+            <column name="UPLOADED_BY_ID" type="UUID"/>
+            <column name="TEAM_ID" type="UUID"/>
+            <column name="DOMAIN_ID" type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="3" author="File_Management-project">
+        <createTable tableName="TEAM">
+            <column name="ID" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TEAM"/>
+            </column>
+            <column name="TEAM_NAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="File_Management-project">
+        <addColumn tableName="USER_">
+            <column name="TEAM_ID" type="UUID"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="5" author="File_Management-project">
+        <createIndex indexName="IDX_DOMAIN__TEAM" tableName="DOMAIN_">
+            <column name="TEAM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TEAM_ID" baseTableName="DOMAIN_" constraintName="FK_DOMAIN__ON_TEAM"
+                                 referencedColumnNames="ID" referencedTableName="TEAM"/>
+    </changeSet>
+    <changeSet id="6" author="File_Management-project">
+        <createIndex indexName="IDX_FILE_ENTITY_DOMAIN" tableName="FILE_ENTITY">
+            <column name="DOMAIN_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="DOMAIN_ID" baseTableName="FILE_ENTITY"
+                                 constraintName="FK_FILE_ENTITY_ON_DOMAIN" onDelete="SET NULL"
+                                 referencedColumnNames="ID" referencedTableName="DOMAIN_"/>
+    </changeSet>
+    <changeSet id="7" author="File_Management-project">
+        <createIndex indexName="IDX_FILE_ENTITY_TEAM" tableName="FILE_ENTITY">
+            <column name="TEAM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TEAM_ID" baseTableName="FILE_ENTITY"
+                                 constraintName="FK_FILE_ENTITY_ON_TEAM" onDelete="SET NULL" referencedColumnNames="ID"
+                                 referencedTableName="TEAM"/>
+    </changeSet>
+    <changeSet id="8" author="File_Management-project">
+        <createIndex indexName="IDX_FILE_ENTITY_UPLOADED_BY" tableName="FILE_ENTITY">
+            <column name="UPLOADED_BY_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="UPLOADED_BY_ID" baseTableName="FILE_ENTITY"
+                                 constraintName="FK_FILE_ENTITY_ON_UPLOADED_BY" onDelete="SET NULL"
+                                 referencedColumnNames="ID" referencedTableName="USER_"/>
+    </changeSet>
+    <changeSet id="9" author="File_Management-project">
+        <createIndex indexName="IDX_USER__TEAM" tableName="USER_">
+            <column name="TEAM_ID"/>
+        </createIndex>
+
+        <addForeignKeyConstraint baseColumnNames="TEAM_ID" baseTableName="USER_" constraintName="FK_USER__ON_TEAM"
+                                 referencedColumnNames="ID" referencedTableName="TEAM"/>
+    </changeSet>
+</databaseChangeLog>

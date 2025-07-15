@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view"
+      title="msg://fileEntityDetailView.title"
+      focusComponent="form">
+    <data>
+        <instance id="fileEntityDc"
+                  class="com.company.file_managementproject.entity.FileEntity">
+            <fetchPlan extends="_base">
+                <property name="uploaded_by" fetchPlan="_base"/>
+                <property name="team" fetchPlan="_base"/>
+                <property name="domain" fetchPlan="_base"/>
+            </fetchPlan>
+            <loader id="fileEntityDl"/>
+        </instance>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+    </facets>
+    <actions>
+        <action id="saveAction" type="detail_saveClose"/>
+        <action id="closeAction" type="detail_close"/>
+    </actions>
+    <layout>
+        <formLayout id="form" dataContainer="fileEntityDc">
+            <responsiveSteps>
+                <responsiveStep minWidth="0" columns="1"/>
+                <responsiveStep minWidth="40em" columns="2"/>
+            </responsiveSteps>
+            <textField id="file_nameField" property="file_name"/>
+            <fileStorageUploadField id="file_dataField" clearButtonVisible="true" fileNameVisible="true"
+                                    property="file_data"/>
+            <entityPicker id="uploaded_byField" property="uploaded_by">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="teamField" property="team">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+            <entityPicker id="domainField" property="domain">
+                <actions>
+                    <action id="entityLookupAction" type="entity_lookup"/>
+                    <action id="entityClearAction" type="entity_clear"/>
+                </actions>
+            </entityPicker>
+        </formLayout>
+        <hbox id="detailActions">
+            <button id="saveAndCloseButton" action="saveAction"/>
+            <button id="closeButton" action="closeAction"/>
+        </hbox>
+    </layout>
+</view>
