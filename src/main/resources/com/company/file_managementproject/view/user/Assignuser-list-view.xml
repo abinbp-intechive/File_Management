@@ -35,7 +35,7 @@
             <properties include=".*"/>
         </genericFilter>
         <hbox id="buttonsPanel" classNames="buttons-panel">
-            <button id="addTeam" action="selectAction"/>
+            <button id="addTeam" />
             <button id="editButton" action="usersDataGrid.editAction"/>
             <button id="removeButton" action="usersDataGrid.removeAction"/>
             <simplePagination id="pagination" dataLoader="usersDl"/>
@@ -46,7 +46,6 @@
                   dataContainer="usersDc"
                   columnReorderingAllowed="true">
             <actions>
-                <action id="addAction" type="list_add"/>
                 <action id="editAction" type="list_edit"/>
                 <action id="removeAction" type="list_remove"/>
             </actions>
